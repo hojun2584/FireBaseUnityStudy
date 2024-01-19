@@ -19,11 +19,13 @@ public class AuthController : MonoBehaviour
 
 
     public Action LoginFail;
+    public Action LoginSuccess;
     public void Awake()
     {
         auth = FirebaseAuth.DefaultInstance;
 
-        LoginFail += ()=> { Floating.instance.JustFloating("Login Fail"); };
+        LoginFail += () => { Floating.instance.JustFloating("Login Fail"); };
+        LoginSuccess += () => { Floating.instance.JustFloating("Login Success"); };
     }
 
 
@@ -47,12 +49,12 @@ public class AuthController : MonoBehaviour
         try
         {
             await temp.ConfigureAwait(false);
-            UnityMainThreadDispatcher.Instance().Enqueue( ()=> Floating.instance.JustFloating("Login Success") );
+            UnityMainThreadDispatcher.Instance().Enqueue( LoginSuccess);
             
         }
         catch
         {
-            UnityMainThreadDispatcher.Instance().Enqueue( ()=>LoginFail() );
+            UnityMainThreadDispatcher.Instance().Enqueue( LoginFail );
         }
 
     }
