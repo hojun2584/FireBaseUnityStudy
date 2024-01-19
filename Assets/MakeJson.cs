@@ -1,3 +1,5 @@
+using Firebase;
+using Firebase.Database;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,26 +15,36 @@ public class SaveData
         this.name = name;
     }
 
-
-
     public string name;
     public string comment = "저장 완료";
+}
+
+
+[Serializable]
+public class MonsterData
+{
+    public String name;
+    public int hp;
+    public int maxHp;
+    public float speed;
+
 }
 
 
 public class MakeJson : MonoBehaviour
 {
 
-    string path;
     SaveData data;
     SaveData data2;
+    [SerializeField]
+    MonsterData monster;
 
     string saveKeyName = "StudyData";
 
 
     public void Awake()
     {
-        path = Application.dataPath +"/player.json";
+        
     }
 
     // Start is called before the first frame update
@@ -40,32 +52,60 @@ public class MakeJson : MonoBehaviour
     {
         data = new SaveData("저");
         data2 = new SaveData("장");
+        monster = new MonsterData();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Save();
             Debug.Log("Save");
         }
 
-
-        
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            LoadData();
+            Debug.Log("Load");
+        }
     }
 
+
+    public void LoadData()
+    {
+
+        FirebaseDatabase.DefaultInstance.GetReference(saveKeyName);
+        DataSnapshot snapShot = null;
+        FirebaseDatabase db = FirebaseDatabase.DefaultInstance;
+        DatabaseManager.instance.SetReference("StudyData");
+
+        DatabaseManager.instance.reference.GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                snapShot = task.Result;
+            }
+
+            foreach (var item in snapShot.Children)
+            {
+                IDictionary rank = (IDictionary)item.Value;
+                foreach (DictionaryEntry item1 in rank)
+                    Debug.Log(item1.Key + " || " + item1.Value);
+                
+            }
+
+
+        });
+    }
 
     public void Save()
     {
         string jsonData = null;
-
-        jsonData += JsonUtility.ToJson(data,true);
-
-        string key = Test.instance.reference.Child(saveKeyName).Push().Key;
-        Test.instance.reference.Child(saveKeyName).Child(key).SetRawJsonValueAsync(jsonData) ;
+        jsonData += JsonUtility.ToJson(monster,true);
+        DatabaseManager.instance.SetRootReference();
+        string key = DatabaseManager.instance.reference.Child(saveKeyName).Push().Key;
+        DatabaseManager.instance.reference.Child(saveKeyName).Child(key).SetRawJsonValueAsync(jsonData) ;
     }
 
     
