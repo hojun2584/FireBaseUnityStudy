@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="firebase_database_url" translatable="false">https://unity-serverstudy-default-rtdb.firebaseio.com/</string>
+  <string name="gcm_defaultSenderId" translatable="false">31569872180</string>
+  <string name="google_storage_bucket" translatable="false">unity-serverstudy.appspot.com</string>
+  <string name="project_id" translatable="false">unity-serverstudy</string>
+  <string name="google_api_key" translatable="false">AIzaSyAr4V0CQ98QC3CnnA6BgLn4H_evF95u9x8</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAr4V0CQ98QC3CnnA6BgLn4H_evF95u9x8</string>
+  <string name="google_app_id" translatable="false">1:31569872180:android:46088c19ca1d80da6ad161</string>
+</resources>

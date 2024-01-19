@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "31569872180",
+    "project_id": "unity-serverstudy",
+    "firebase_url":"https://unity-serverstudy-default-rtdb.firebaseio.com/",
+    "storage_bucket": "unity-serverstudy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31569872180:android:46088c19ca1d80da6ad161",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.FireBaseStudy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr4V0CQ98QC3CnnA6BgLn4H_evF95u9x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
