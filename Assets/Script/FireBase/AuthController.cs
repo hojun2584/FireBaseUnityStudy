@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class AuthController : SingleTon<AuthController>
 {
 
-    public FirebaseAuth auth;
+    FirebaseAuth auth;
     public AuthResult authResult;
     public bool isLogin;
     public Action LoginFail;
@@ -20,6 +20,18 @@ public class AuthController : SingleTon<AuthController>
     public Action CreateFail;
     public Action CreateSuccess;
     public LoginBox loginForm;
+
+
+    public String UserId
+    {
+        get 
+        {
+            if (authResult == null)
+                return null;
+
+            return authResult.User.UserId;
+        }
+    }
 
     string id;
     string password;

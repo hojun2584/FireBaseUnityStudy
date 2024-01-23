@@ -1,0 +1,14 @@
+{
+    "name": "",
+    "itemList": [
+        {
+            "name": "hpPotion"
+        },
+        {
+            "name": "hpPotion"
+        }
+    ],
+    "checkSerial": {
+        "name": "hpPotion"
+    }
+}

@@ -31,7 +31,7 @@ public class MonsterData
 }
 
 
-public class MakeJson : MonoBehaviour
+public class MakeJson : SingleTon<MakeJson>
 {
 
     //SaveData data;
@@ -42,67 +42,37 @@ public class MakeJson : MonoBehaviour
     //string saveKeyName = "StudyData";
 
 
-    //public void Awake()
-    //{
-
-    //}
-
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    data = new SaveData("Àú");
-    //    data2 = new SaveData("Àå");
-    //    monster = new MonsterData();
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        Save();
-    //        Debug.Log("Save");
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.A))
-    //    {
-    //        LoadData();
-    //        Debug.Log("Load");
-    //    }
-    //}
 
 
-    //public void LoadData()
-    //{
+    public void LoadData(string keyName)
+    {
+        DataSnapshot snapShot = null;
+        DatabaseManager.instance.SetReference(keyName);
 
-    //    FirebaseDatabase.DefaultInstance.GetReference(saveKeyName);
-    //    DataSnapshot snapShot = null;
-    //    FirebaseDatabase db = FirebaseDatabase.DefaultInstance;
-    //    DatabaseManager.instance.SetReference("StudyData");
+        var check = DatabaseManager.instance.reference.GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                snapShot = task.Result;
+            }
+            foreach (var item in snapShot.Children)
+            {
+                IDictionary rank = (IDictionary)item.Value;
+                foreach (DictionaryEntry item1 in rank)
+                    Debug.Log(item1.Key + " || " + item1.Value);
+            }
+        });
 
-    //    DatabaseManager.instance.reference.GetValueAsync().ContinueWith(task =>
-    //    {
-    //        if (task.IsCompleted)
-    //        {
-    //            snapShot = task.Result;
-    //        }
+        
+    }
 
-    //        foreach (var item in snapShot.Children)
-    //        {
-    //            IDictionary rank = (IDictionary)item.Value;
-    //            foreach (DictionaryEntry item1 in rank)
-    //                Debug.Log(item1.Key + " || " + item1.Value);
-
-    //        }
-
-
-    //    });
-    //}
-
-    public void Save(GameObject data , string keyName)
+    public void Save(System.Object data , string keyName)
     {
         string jsonData = null;
-        jsonData += JsonUtility.ToJson(data, true);
+
+        Debug.Log(data);
+
+        jsonData = JsonUtility.ToJson(data, true);
         DatabaseManager.instance.SetRootReference();
         string key = DatabaseManager.instance.reference.Child(keyName).Push().Key;
         DatabaseManager.instance.reference.Child(keyName).Child(key).SetRawJsonValueAsync(jsonData);

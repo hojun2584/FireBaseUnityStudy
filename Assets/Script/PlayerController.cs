@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     float rayDistance = 3f;
 
     float playerSpped = 0.02f;
+    [SerializeField]
     GameObject target;
 
     float rotationSpeed = 1f;
@@ -42,11 +43,10 @@ public class PlayerController : MonoBehaviour
         FindItem();
 
         
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (target.TryGetComponent(out IInteractiveItem interactive))
-                interactive.Interactive();
-
+                interactive.Interactive(gameObject);
 
         }
     }
