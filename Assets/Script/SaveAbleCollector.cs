@@ -21,8 +21,8 @@ public class SaveAbleCollector : MonoBehaviour , ISaveAbleCollector
         {
             Type itemType = item.GetType();
             
-            FieldInfo[] fields = itemType.GetFields(BindingFlags.Public |
-                BindingFlags.NonPublic|BindingFlags.Instance);
+            FieldInfo[] fields = itemType.GetFields(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             foreach (var field in fields)
             {

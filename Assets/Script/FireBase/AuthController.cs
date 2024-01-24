@@ -68,16 +68,18 @@ public class AuthController : SingleTon<AuthController>
 
         try
         {
-            await loginResult.ConfigureAwait(false);
+            await loginResult.ConfigureAwait(true);
 
-            if (authResult != null)
-                UnityMainThreadDispatcher.Instance().Enqueue(LoginSuccess);
-            else
-                throw new Exception("Login Fail");
+            LoginSuccess();
+
+            //if (authResult != null)
+            //    UnityMainThreadDispatcher.Instance().Enqueue(LoginSuccess);
+            //else
+            //    throw new Exception("Login Fail");
         }
         catch
         {
-            UnityMainThreadDispatcher.Instance().Enqueue( LoginFail );
+            LoginFail();
         }
 
     }
