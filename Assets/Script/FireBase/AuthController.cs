@@ -19,7 +19,6 @@ public class AuthController : SingleTon<AuthController>
     public Action LoginSuccess;
     public Action CreateFail;
     public Action CreateSuccess;
-    public LoginBox loginForm;
 
 
     public String UserId
@@ -52,8 +51,6 @@ public class AuthController : SingleTon<AuthController>
     {
         isLogin = false;
 
-        
-
         var loginResult = auth.SignInWithEmailAndPasswordAsync(id, password).ContinueWith(task =>
         {
             if (task.IsCanceled || task.IsFaulted) 
@@ -69,13 +66,7 @@ public class AuthController : SingleTon<AuthController>
         try
         {
             await loginResult.ConfigureAwait(true);
-
             LoginSuccess();
-
-            //if (authResult != null)
-            //    UnityMainThreadDispatcher.Instance().Enqueue(LoginSuccess);
-            //else
-            //    throw new Exception("Login Fail");
         }
         catch
         {
@@ -100,26 +91,22 @@ public class AuthController : SingleTon<AuthController>
                 Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
                 return;
             }
-            // Firebase user has been created.
 
             authResult = task.Result;
             Debug.LogFormat("Firebase user created successfully: {0} ({1})",
             authResult.User.DisplayName, authResult.User.UserId);
+
         });
 
 
         try
         {
-            await createResult.ConfigureAwait(false);
-            if (authResult != null)
-                UnityMainThreadDispatcher.Instance().Enqueue(CreateSuccess);
-            else 
-                throw new Exception("Create Fail");
-            
+            await createResult.ConfigureAwait(true);
+            CreateSuccess();
         }
         catch 
         {
-            UnityMainThreadDispatcher.Instance().Enqueue(CreateFail);
+            CreateFail();
         }
 
     }

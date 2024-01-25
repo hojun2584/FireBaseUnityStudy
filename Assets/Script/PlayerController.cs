@@ -46,7 +46,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (target.TryGetComponent(out IInteractiveItem interactive))
+            {
                 interactive.Interactive(gameObject);
+            }
+                
 
         }
     }

@@ -22,8 +22,8 @@ public class LoginBox : MonoBehaviour
         AuthController.instance.LoginSuccess += () => { Floating.instance.JustFloating(loginSuccess); };
         AuthController.instance.CreateFail += () => { Floating.instance.JustFloating(createFalse); };
         AuthController.instance.CreateSuccess += () => { Floating.instance.JustFloating(createTrue); };
+        AuthController.instance.SetLoginData(this);
 
-        AuthController.instance.loginForm = this;
     }
 
 

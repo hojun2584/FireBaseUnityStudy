@@ -20,7 +20,6 @@ public interface ILoadAble
 {
     public void Load(DataSnapshot json);
 
-    public void SetLoad(object name);
 }
 
 public interface ISaveAbleCollector

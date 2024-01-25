@@ -26,11 +26,12 @@ public class SaveAbleCollector : MonoBehaviour , ISaveAbleCollector
 
             foreach (var field in fields)
             {
-                var attributes = field.GetCustomAttributes(typeof(SerializeField), false);
-                
-                if (attributes.Length > 0)
-                    dataList.Add( field.GetValue(item.GetClass()) );
-
+                var attribute = field.GetCustomAttribute(typeof(SerializeField), false);
+                if (attribute != null)
+                {
+                    // item의 클래스 형태로 filed value 삽입
+                    dataList.Add(field.GetValue(item.GetClass()));
+                }
             }
         }
     }

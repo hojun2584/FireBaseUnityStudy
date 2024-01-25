@@ -37,14 +37,13 @@ public class Save : MonoBehaviour , IInteractiveItem
         {
 
             saveItem.GetSaveAble();
-
             var data = saveItem.GetSaveList();
 
             
             foreach (var item in data)
             {
                 var saveData = new SaveFormat(item.ToString(), item);
-                MakeJson.instance.Save(saveData, UserId);
+                FireBaseDB.instance.Save(saveData, UserId);
             }
 
 

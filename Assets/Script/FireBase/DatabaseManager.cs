@@ -7,24 +7,11 @@ using System.IO;
 using UnityEngine.Rendering;
 
 
-public class DatabaseManager : MonoBehaviour
+public class DatabaseManager : SingleTon<DatabaseManager>
 {
 
-    public static DatabaseManager instance;
     public DatabaseReference reference;
-    public string savePath;
     FirebaseDatabase database;
-
-    protected void Awake()
-    {
-        if(instance == null)
-            instance = this;
-        else
-            Destroy(this.gameObject);
-
-
-        savePath = Application.dataPath + "/player.json";
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +21,7 @@ public class DatabaseManager : MonoBehaviour
     }
 
 
-    public void SetReference(string path)
+    public void GetReference(string path)
     {
         reference = database.GetReference(path);
 
